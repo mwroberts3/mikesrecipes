@@ -1,10 +1,18 @@
 import { FaSignOutAlt, FaSort, FaPlusSquare } from 'react-icons/fa'
 
-const UserCP = () => {
+const UserCP = ({setSortRecipes, sortRecipes}) => {
+    const cpSortRecipes = () => {
+        if (sortRecipes === "asc") {
+            setSortRecipes('dsc')
+        } else {
+            setSortRecipes('asc')
+        }
+    }
+
     return (
         <div id="user-control-panel">
             <p>
-                <FaSort className="icon"/>
+                <FaSort className="icon" onClick={cpSortRecipes}/>
                 <FaPlusSquare className="icon"/>
             </p>
             <h2>Mike's Recipes</h2>

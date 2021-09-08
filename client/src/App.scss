@@ -43,9 +43,12 @@ body {
 }
 
 #recipe-grid {
+  margin: 0 auto;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   .recipe-card {
     display: flex;
@@ -59,4 +62,44 @@ body {
     border: 2px solid #000;
     border-radius: 5px;
   }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.hide-recipe-grid {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.ingredient-list-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-width: 90%;
+  background: #fff;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  li {
+    list-style: none;
+    padding-bottom: 5px;
+    font-weight: bold;
+  }
+
+  li:last-of-type {
+    padding-bottom: 0;
+  }
+}
+
+.close-ingredient-list {
+  position: absolute;
+  top: 0;
+  right: 10px;
 }
