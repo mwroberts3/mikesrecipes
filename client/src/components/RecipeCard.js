@@ -1,9 +1,16 @@
-const RecipeTitleCard = ({ recipe, showIngredientList }) => {
+import { useEffect } from "react"
+
+const RecipeTitleCard = ({ recipe, showIngredientList }) => {    
     return (
-        <p className="recipe-card" onClick={() => showIngredientList(recipe)}>
+        <div className="outer-rc-container">
+            <p className="recipe-card" onClick={(e) => showIngredientList(e, recipe)}>
             {recipe.dish}
-        </p>
+            </p>
+            <div className="multi-recipes">+</div>
+            <div className="delete-recipe">X</div>
+        </div>
     )
 }
 
 export default RecipeTitleCard
+

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import RecipeTitleCard from "./RecipeCard"
+import RecipeCard from "./RecipeCard"
 import IngredientList from "./IngredientList"
 
 const RecipeGrid = ({sortRecipes}) => {
@@ -28,7 +28,7 @@ const RecipeGrid = ({sortRecipes}) => {
             })
         }, [sortRecipes])
 
-    const showIngredientList = (recipe) => {
+    const showIngredientList = (e, recipe) => {
         document.getElementById("recipe-grid").classList.add('hide-recipe-grid')
 
         setSelectedIngredients(recipe.ingredients)
@@ -40,11 +40,11 @@ const RecipeGrid = ({sortRecipes}) => {
         setSelectedIngredients([])
     }
 
-
+    
 if (recipeList.length > 0) {
     return (
         <div id="recipe-grid"> 
-            {recipeList.map((recipe) => <RecipeTitleCard key={recipe.id} recipe={recipe} showIngredientList={showIngredientList} />)}
+            {recipeList.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} showIngredientList={showIngredientList} />)}
 
             {selectedIngredients.length > 0 && 
             <IngredientList selectedIngredients={selectedIngredients}
@@ -63,3 +63,5 @@ if (recipeList.length > 0) {
 }
 
 export default RecipeGrid
+
+
