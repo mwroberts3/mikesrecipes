@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import RecipeCard from "./RecipeCard"
 import IngredientList from "./IngredientList"
 
-const RecipeGrid = ({sortRecipes}) => {
+const RecipeGrid = ({sortRecipes, dragged}) => {
     const [recipeList, setRecipeList] = useState([])
     const [selectedIngredients, setSelectedIngredients] = useState([])
 
@@ -29,9 +29,11 @@ const RecipeGrid = ({sortRecipes}) => {
         }, [sortRecipes])
 
     const showIngredientList = (e, recipe) => {
-        document.getElementById("recipe-grid").classList.add('hide-recipe-grid')
-
-        setSelectedIngredients(recipe.ingredients)
+        if (!dragged.current) {
+            document.getElementById("recipe-grid").classList.add('hide-recipe-grid')
+    
+            setSelectedIngredients(recipe.ingredients)
+        }
     }
 
     const closeIngredientList = () => {

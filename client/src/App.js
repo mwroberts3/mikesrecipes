@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import './App.scss';
 import RecipeGrid from "./components/RecipeGrid";
 import UserCP from "./components/UserCP";
@@ -13,8 +13,11 @@ function App() {
     animationID = 0,
     selectedCard = ''
 
+  const dragged = useRef(false)
+
   const touchStart = (e) => {
-    console.log('mouse down', e.target.parentNode)
+    console.log('touch started', e.pageX, e.target.textContent)
+
     isDragging = true
     startPos = e.pageX
 
@@ -26,24 +29,42 @@ function App() {
 
   const touchMove = (e) => {
     if (isDragging) {
-      currentTranslate = e.pageX - startPos
-
+      currentTranslate = prevTranslate + e.pageX - startPos
       console.log(currentTranslate)
+    } 
+
+    if (currentTranslate <= -40) {
+      currentTranslate = -50
+    } 
+
+    if (currentTranslate > 0) {
+      currentTranslate = 0
     }
   }
-
+  
   const touchEnd = () => {
     isDragging = false
     cancelAnimationFrame(animationID)
-    selectedCard.style.transform = `translateX(${-currentTranslate}px)`
-    currentTranslate = 0
+    prevTranslate = currentTranslate
+    
+    if (currentTranslate > -40) {
+      currentTranslate = 0
+      prevTranslate = 0
+    }
+    // selectedCard.style.transform = `translateX(0px)`
+
+    // need to distinguish between the different cards and only have the prevTranslate/currentTranslate carry over if it's the same card being clicked
+
+    // maybe it base it on recipe name, store the previous name in a temp variable and compare the current clicked name to the previous one
+
+    console.log(prevTranslate, currentTranslate)
+    
+    dragged.current = true
   }
 
   const animation = () => {
-    if (currentTranslate < 0) {
-      selectedCard.style.transform = `translateX(${currentTranslate}px)`
-    }
-
+    selectedCard.style.transform = `translateX(${currentTranslate}px)`
+    
     if (isDragging) {
       requestAnimationFrame(animation)
     }
@@ -58,6 +79,10 @@ function App() {
       
       return () => {
           window.removeEventListener('mousedown', touchStart)
+          
+          window.removeEventListener('mousemove', touchMove)
+
+          window.removeEventListener('mouseup', touchEnd)
       }
   }, [])
 
@@ -67,7 +92,7 @@ function App() {
     <div className="App">
       <div id="outer-container">
         <UserCP setSortRecipes={setSortRecipes} sortRecipes={sortRecipes}/>
-        <RecipeGrid sortRecipes={sortRecipes}/>
+        <RecipeGrid sortRecipes={sortRecipes} dragged={dragged}/>
       </div>
     </div>
   );
