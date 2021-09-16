@@ -50,7 +50,7 @@ body {
 
 #recipe-grid {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: calc(100vw + 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,7 +58,7 @@ body {
   overflow: hidden;
 
   .recipe-card {
-    max-width: 600px;
+    max-width: calc(100vw + 100px);
     width: 100vw;
     display: flex;
     justify-content: center;
