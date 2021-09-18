@@ -1,4 +1,4 @@
-import { FaSignOutAlt, FaSort, FaPlusSquare } from 'react-icons/fa'
+import { FaSignOutAlt, FaSort, FaPlusSquare, FaLayerGroup } from 'react-icons/fa'
 
 const UserCP = ({setSortRecipes, sortRecipes}) => {
     const cpSortRecipes = () => {
@@ -14,6 +14,7 @@ const UserCP = ({setSortRecipes, sortRecipes}) => {
             <p>
                 <FaSort className="icon" onClick={cpSortRecipes}/>
                 <FaPlusSquare className="icon"/>
+                <FaLayerGroup className="icon" />
             </p>
             <h2>Mike's Recipes</h2>
             <p>
