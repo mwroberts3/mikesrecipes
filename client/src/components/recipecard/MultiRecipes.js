@@ -1,6 +1,6 @@
-const MultiRecipes = ({ showCombinedList, recipe }) => {
+const MultiRecipes = ({ addToCombinedList, recipe }) => {
     return (
-        <div className="multi-recipes" onClick={(e) => showCombinedList(e, recipe)}>
+        <div className="multi-recipes" onClick={(e) => addToCombinedList(e, recipe)}>
             +
         </div>
     )

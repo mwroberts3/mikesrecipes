@@ -35,8 +35,12 @@ const RecipeGrid = ({sortRecipes, dragged}) => {
             document.getElementById("recipe-grid").classList.add('hide-recipe-grid')
 
 
-    
-            setSelectedIngredients(recipe.ingredients)
+            let tempIngredientList = []
+            for (let i=0; i<recipe.ingredients.length; i++) {
+                tempIngredientList.push(recipe.ingredients[i].item)
+            }
+            setSelectedIngredients(tempIngredientList)
+
         }
     }
 
@@ -46,11 +50,15 @@ const RecipeGrid = ({sortRecipes, dragged}) => {
         setSelectedIngredients([])
     }
 
-    const showCombinedList = (e, recipe) => {
+    const addToCombinedList = (e, recipe) => {
         let tempMultiList = multiList.current
 
-        for(let i=0; i<recipe.ingredients.length; i++) {
-            tempMultiList.push(recipe.ingredients[i])
+        if (!e.target.classList.contains('multiList-select')) {
+            for(let i=0; i<recipe.ingredients.length; i++) {
+                tempMultiList.push(recipe.ingredients[i])
+            }
+        } else {
+            tempMultiList = tempMultiList.filter((element) => element.id !== recipe.id)
         }
 
         e.target.classList.toggle('multiList-select')
@@ -58,15 +66,13 @@ const RecipeGrid = ({sortRecipes, dragged}) => {
         multiList.current = tempMultiList
 
         console.log(multiList.current)
-
-        // needs to remove ingredients of selected recipe from the multilist if clicked off
     }
 
     
 if (recipeList.length > 0) {
     return (
         <div id="recipe-grid"> 
-            {recipeList.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} showIngredientList={showIngredientList}  showCombinedList={showCombinedList}/>)}
+            {recipeList.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} showIngredientList={showIngredientList}  addToCombinedList={addToCombinedList}/>)}
 
             {selectedIngredients.length > 0 && 
             <IngredientList selectedIngredients={selectedIngredients}
