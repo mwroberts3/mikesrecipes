@@ -30,6 +30,7 @@ body {
   align-items: center;
   max-width: 600px;
   margin: auto;
+  overflow: hidden;
 
   h2 {
     margin-top: 8px;
@@ -51,6 +52,7 @@ body {
 #recipe-grid {
   margin: 0 auto;
   max-width: calc(100vw + 100px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,9 +121,9 @@ body {
 
 .ingredient-list-display {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,6 +133,7 @@ body {
   padding: 5px;
   border: 1px solid black;
   border-radius: 10px;
+  overflow: auto;
 
   li {
     list-style: none;
@@ -140,6 +143,48 @@ body {
 
   li:last-of-type {
     padding-bottom: 0;
+  }
+}
+
+#add-new-recipe-form {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-width: 90%;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: auto;
+
+  input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    margin-bottom: 10px;
+    width: 225px;
+  }
+
+  button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    width: 225px;
+  }
+
+  button:first-of-type {
+    margin-bottom: 10px;
+  }
+
+  button:last-of-type {
+    background: #777;
+    color: #fff;
+    font-weight: bold;
   }
 }
 

@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from "react"
 import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
+import AddRecipeForm from "./AddRecipeForm"
 
-const RecipeGrid = ({sortRecipes, dragged}) => {
+const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe}) => {
     const [recipeList, setRecipeList] = useState([])
-    const [selectedIngredients, setSelectedIngredients] = useState([])
 
-    const multiList = useRef([])
 
     useEffect(() => {
         fetch("/recipes")
@@ -29,20 +28,6 @@ const RecipeGrid = ({sortRecipes, dragged}) => {
                 setRecipeList(data)
             })
         }, [sortRecipes])
-
-    const showIngredientList = (e, recipe) => {
-        if (!dragged.current) {
-            document.getElementById("recipe-grid").classList.add('hide-recipe-grid')
-
-
-            let tempIngredientList = []
-            for (let i=0; i<recipe.ingredients.length; i++) {
-                tempIngredientList.push(recipe.ingredients[i].item)
-            }
-            setSelectedIngredients(tempIngredientList)
-
-        }
-    }
 
     const closeIngredientList = () => {
         document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
@@ -77,8 +62,10 @@ if (recipeList.length > 0) {
             {selectedIngredients.length > 0 && 
             <IngredientList selectedIngredients={selectedIngredients}
             closeIngredientList={closeIngredientList}
-            />
-            }
+            />}
+
+            {addingRecipe && 
+            <AddRecipeForm addNewRecipe={addNewRecipe}/>}
         </div>
     )
 } else {

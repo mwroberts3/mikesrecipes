@@ -7,7 +7,7 @@ selectedCard = ''
 
 const touchStart = (e) => {    
     isDragging = true
-    startPos = e.pageX
+    startPos = getPositionX(e)
     
     if (e.target.tagName === "P") {
       selectedCard = e.target.parentNode
@@ -29,7 +29,9 @@ const touchStart = (e) => {
 
   const touchMove = (e) => {
     if (isDragging) {
-      currentTranslate = prevTranslate + e.pageX - startPos
+      let currentPos = getPositionX(e)
+
+      currentTranslate = prevTranslate + currentPos - startPos
     } 
 
     if (currentTranslate <= -40) {
@@ -66,6 +68,9 @@ const touchStart = (e) => {
     }
   }
 
+  const getPositionX = (e) => {
+    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX
+  }
 
 const setDragged = () => {
     if (currentTranslate === 0 && prevTranslate === 0) {
