@@ -12,14 +12,17 @@ const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients,
     const showMultiRecipeList = (e) => {
         console.log(multiList.current)
 
-        document.getElementById('recipe-grid').style.height = '100vh'
-        document.getElementById('recipe-grid').classList.add('hide-recipe-grid')
-
-        let tempIngredientList = []
-        for (let i=0; i<multiList.current.length; i++) {
-            tempIngredientList.push(multiList.current[i].item)
+        if (multiList.current.length > 0) {
+            document.getElementById('recipe-grid').style.height = '100vh'
+            document.getElementById('recipe-grid').classList.add('hide-recipe-grid')
+    
+            let tempIngredientList = []
+            for (let i=0; i<multiList.current.length; i++) {
+                tempIngredientList.push(multiList.current[i].item)
+            }
+            setSelectedIngredients(tempIngredientList)        
         }
-        setSelectedIngredients(tempIngredientList)        
+
     }
 
     return (
@@ -31,7 +34,7 @@ const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients,
                     showMultiRecipeList(e)
                 }}/>
             </p>
-            <h2>Mike's Recipes</h2>
+            <h2>Good Names Taken</h2>
             <p>
                 <FaSignOutAlt className="icon"/>
             </p>

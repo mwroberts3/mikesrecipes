@@ -54,14 +54,16 @@ function App() {
   const addNewRecipe = () => {
     let newRecipeInfo = Array.from(document.querySelectorAll('input'))
 
-    let responseReadyJSON = {}
+    let requestReadyRecipeObj = {}
     let ingredientSublist = []
+    let newRecipeID = Math.floor(Math.random() * 9999)
 
     for(let i=0;i<newRecipeInfo.length;i++) {
       if (i===0) {
-        responseReadyJSON.dish = newRecipeInfo[i].value
+        requestReadyRecipeObj.dish = newRecipeInfo[i].value
+        requestReadyRecipeObj.id = newRecipeID
       } else {
-        ingredientSublist.push(newRecipeInfo[i].value)
+        ingredientSublist.push({"item":newRecipeInfo[i].value, "id":newRecipeID})
       }
     }
 
@@ -69,19 +71,30 @@ function App() {
     for(let i=0;i<newRecipeInfo.length;i++) {
       newRecipeInfo[i].value = ''
     }
+    
+    requestReadyRecipeObj.ingredients = ingredientSublist
 
-    responseReadyJSON.ingredients = ingredientSublist
+    requestReadyRecipeObj = JSON.stringify(requestReadyRecipeObj)
+    
+    console.log(requestReadyRecipeObj)
 
-    console.log(responseReadyJSON)
-
-    setAddingRecipe(!addingRecipe)
-    showRecipeGrid()
-  }
-
+    fetch("/recipes", {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: requestReadyRecipeObj
+    })
+      .then((res) => console.log(res))
+      .then(() => {
+        setAddingRecipe(false)
+      })
+        .catch((err) => console.log(err))    
+      }
+  
   const showAddRecipeForm = () => {
     if (!addingRecipe) {
       hideRecipeGrid()
-      addNewRecipe()
     } else if (addingRecipe){
       showRecipeGrid()
     }
@@ -94,7 +107,15 @@ function App() {
     <div className="App">
       <div id="outer-container">
         <UserCP setSortRecipes={setSortRecipes} sortRecipes={sortRecipes} multiList={multiList} setMultiListView={setMultiListView} setSelectedIngredients={setSelectedIngredients} showAddRecipeForm={showAddRecipeForm}/>
-        <RecipeGrid sortRecipes={sortRecipes} dragged={dragged} multiList={multiList} multiListView={multiListView} selectedIngredients={selectedIngredients} setSelectedIngredients={setSelectedIngredients} showIngredientList={showIngredientList} addingRecipe={addingRecipe} addNewRecipe={addNewRecipe}/>
+        <RecipeGrid 
+          sortRecipes={sortRecipes} 
+          dragged={dragged} 
+          multiList={multiList} 
+          multiListView={multiListView} selectedIngredients={selectedIngredients} setSelectedIngredients={setSelectedIngredients} 
+          showIngredientList={showIngredientList} addingRecipe={addingRecipe} 
+          setAddingRecipe={setAddingRecipe}
+          addNewRecipe={addNewRecipe} 
+          showRecipeGrid={showRecipeGrid}/>
       </div>
     </div>
   );

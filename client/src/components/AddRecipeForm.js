@@ -1,23 +1,44 @@
-const AddRecipeForm = ({addNewRecipe}) => {
+const AddRecipeForm = ({addNewRecipe, showRecipeGrid}) => {
+    const anotherIngredient = (e) => {
+        let ingredientInputs = document.getElementById('ingredient-inputs')
+
+        ingredientInputs.innerHTML += `
+            <label>Ingredient</label>
+            <input type="text" />
+        `
+    }
+
     return (
         <form id="add-new-recipe-form">
-            <label>Recipe Name:</label>
-            <input type="text" />
-            <label>Ingredient 1:</label>
-            <input type="text" />
-            <label>Ingredient 2:</label>
-            <input type="text" />
-            <label>Ingredient 3:</label>
-            <input type="text" />
-            <label>Ingredient 4:</label>
-            <input type="text" />
-            <label>Ingredient 5:</label>
-            <input type="text" />
-            <label>Ingredient 6:</label>
-            <input type="text" />
-            <button onClick={(e) => {e.preventDefault()}}>Add Ingredient</button>
-            <button onClick={(e) => {e.preventDefault() 
-            addNewRecipe()}}>Submit Recipe</button>
+            <div id="ingredient-inputs">
+                <label>Recipe Name:</label>
+                <input type="text" required/>
+                <label>Ingredient:</label>
+                <input type="text" />
+                <label>Ingredient:</label>
+                <input type="text" />
+                <label>Ingredient:</label>
+                <input type="text" />
+                <label>Ingredient:</label>
+                <input type="text" />
+                <label>Ingredient:</label>
+                <input type="text" />
+                <label>Ingredient:</label>
+                <input type="text" />
+            </div>
+            <button onClick={(e) => {
+                e.preventDefault()
+                anotherIngredient(e)
+                }}>Add Ingredient</button>
+            <button type="submit" onClick={(e) => {e.preventDefault()
+            console.log(document.querySelector('input'))
+            if (document.querySelector('input').value !== '') {
+                addNewRecipe()
+                showRecipeGrid()
+            } else {
+                window.alert('please enter recipe name or click add button to close')
+            }
+            }}>Submit Recipe</button>
         </form>
     )
 }

@@ -1,6 +1,8 @@
-const DeleteRecipe = () => {
+const DeleteRecipe = ({recipe, deleteRecipe}) => {
     return (
-        <div className="delete-recipe">
+        <div className="delete-recipe" onClick={() => {
+            deleteRecipe(recipe)
+        }}>
             X
         </div>
     )

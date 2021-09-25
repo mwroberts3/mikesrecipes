@@ -3,10 +3,8 @@ import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
 import AddRecipeForm from "./AddRecipeForm"
 
-const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe}) => {
+const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, setAddingRecipe, addNewRecipe, showRecipeGrid}) => {
     const [recipeList, setRecipeList] = useState([])
-
-
     useEffect(() => {
         fetch("/recipes")
             .then((res) => res.json())
@@ -27,7 +25,7 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
                 })
                 setRecipeList(data)
             })
-        }, [sortRecipes])
+        }, [sortRecipes, addingRecipe])
 
     const closeIngredientList = () => {
         document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
@@ -53,11 +51,24 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
         console.log(multiList.current)
     }
 
+    const deleteRecipe = (recipe) => {
+        console.log(`${recipe.dish} deleted`)
+
+        fetch(`/recipes/${recipe.id}`, {
+            method: 'DELETE'
+        })
+            .then((res) => {
+                setAddingRecipe(true)
+                setAddingRecipe(false)
+            })
+            .catch((err) => console.log(err))
+    }
+
     
 if (recipeList.length > 0) {
     return (
         <div id="recipe-grid"> 
-            {recipeList.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} showIngredientList={showIngredientList}  addToCombinedList={addToCombinedList}/>)}
+            {recipeList.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} showIngredientList={showIngredientList}  addToCombinedList={addToCombinedList} deleteRecipe={deleteRecipe}/>)}
 
             {selectedIngredients.length > 0 && 
             <IngredientList selectedIngredients={selectedIngredients}
@@ -65,7 +76,7 @@ if (recipeList.length > 0) {
             />}
 
             {addingRecipe && 
-            <AddRecipeForm addNewRecipe={addNewRecipe}/>}
+            <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid}/>}
         </div>
     )
 } else {
