@@ -3,8 +3,36 @@ import './App.scss';
 import RecipeGrid from "./components/RecipeGrid";
 import UserCP from "./components/UserCP";
 import { touchStart, touchMove, touchEnd, setDragged  } from "./functions/touchFunctions"
+import firebase from "./firebase"
 
 function App() {
+  let provider = new firebase.auth.GoogleAuthProvider()
+
+  console.log(provider)
+
+  firebase.auth()
+  .signInWithPopup(provider)
+  .then((result) => {
+    /** @type {firebase.auth.OAuthCredential} */
+    let credential = result.credential;
+
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    let token = credential.accessToken;
+    // The signed-in user info.
+    let user = result.user;
+    console.log(user)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    // The email of the user's account used.
+    let email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    let credential = error.credential;
+    // ...
+  });
+
   const [sortRecipes, setSortRecipes] = useState("asc")
   const dragged = useRef(false)
   const multiList = useRef([])
@@ -63,7 +91,9 @@ function App() {
         requestReadyRecipeObj.dish = newRecipeInfo[i].value
         requestReadyRecipeObj.id = newRecipeID
       } else {
-        ingredientSublist.push({"item":newRecipeInfo[i].value, "id":newRecipeID})
+        if (newRecipeInfo[i].value !== "") {
+          ingredientSublist.push({"item":newRecipeInfo[i].value, "id":newRecipeID})
+        }
       }
     }
 

@@ -1,15 +1,27 @@
 const AddRecipeForm = ({addNewRecipe, showRecipeGrid}) => {
     const anotherIngredient = (e) => {
         let ingredientInputs = document.getElementById('ingredient-inputs')
+        
+        let previousNewRecIngredients = []
 
+        for(let i=0;i<Array.from(document.querySelectorAll('input')).length;i++) {
+            previousNewRecIngredients.push(Array.from(document.querySelectorAll('input'))[i].value)
+        }
+        console.log(previousNewRecIngredients)
+        
         ingredientInputs.innerHTML += `
-            <label>Ingredient</label>
+            <label>Ingredient:</label>
             <input type="text" />
         `
+
+        for(let i=0;i<previousNewRecIngredients.length;i++) {
+            Array.from(document.querySelectorAll('input'))[i].value = previousNewRecIngredients[i]
+        }
     }
 
     return (
         <form id="add-new-recipe-form">
+            <h2>Add New Recipe</h2>
             <div id="ingredient-inputs">
                 <label>Recipe Name:</label>
                 <input type="text" required/>

@@ -5,7 +5,7 @@ import AddRecipeForm from "./AddRecipeForm"
 
 const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, setAddingRecipe, addNewRecipe, showRecipeGrid}) => {
     const [recipeList, setRecipeList] = useState([])
-    useEffect(() => {
+    const getRecipes = () => {
         fetch("/recipes")
             .then((res) => res.json())
             .then((data) => {
@@ -25,6 +25,10 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
                 })
                 setRecipeList(data)
             })
+    }
+
+    useEffect(() => {
+            getRecipes()
         }, [sortRecipes, addingRecipe])
 
     const closeIngredientList = () => {
@@ -57,9 +61,8 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
         fetch(`/recipes/${recipe.id}`, {
             method: 'DELETE'
         })
-            .then((res) => {
-                setAddingRecipe(true)
-                setAddingRecipe(false)
+            .then(() => {
+                getRecipes()
             })
             .catch((err) => console.log(err))
     }
