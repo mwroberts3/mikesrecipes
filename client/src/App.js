@@ -1,38 +1,13 @@
 import { useState, useEffect, useRef} from "react"
 import './App.scss';
+import { touchStart, touchMove, touchEnd, setDragged  } from "./functions/touchFunctions"
+import { hideRecipeGrid, showRecipeGrid } from "./functions/helperFunctions"
 import RecipeGrid from "./components/RecipeGrid";
 import UserCP from "./components/UserCP";
-import { touchStart, touchMove, touchEnd, setDragged  } from "./functions/touchFunctions"
-import firebase from "./firebase"
+import Login from "./components/Login";
+import Footer from "./components/Footer";
 
 function App() {
-  let provider = new firebase.auth.GoogleAuthProvider()
-
-  console.log(provider)
-
-  firebase.auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
-    let credential = result.credential;
-
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    let token = credential.accessToken;
-    // The signed-in user info.
-    let user = result.user;
-    console.log(user)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    let errorCode = error.code;
-    let errorMessage = error.message;
-    // The email of the user's account used.
-    let email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    let credential = error.credential;
-    // ...
-  });
-
   const [sortRecipes, setSortRecipes] = useState("asc")
   const dragged = useRef(false)
   const multiList = useRef([])
@@ -40,7 +15,26 @@ function App() {
   const [selectedIngredients, setSelectedIngredients] = useState([])
   const [addingRecipe, setAddingRecipe] = useState(false)
 
+  const [loggedIn, setLoggedIn] = useState(true)
+
   useEffect(() => {
+    // firebase.auth()
+    // .getRedirectResult()
+    // .then((result) => {
+    //   if (result.credential) {
+    //     /** @type {firebase.auth.OAuthCredential} */
+    //     var credential = result.credential;
+  
+    //     // This gives you a Google Access Token. You can use it to access the Google API.
+    //     var token = credential.accessToken;
+    //     // ...
+    //   }
+    //   // The signed-in user info.
+    //   var user = result.user;
+  
+    //   setLoggedIn(user)
+    // }).catch((err) => console.log(err));
+
       window.addEventListener('touchstart', touchStart)
 
       window.addEventListener('touchmove', touchMove)
@@ -49,7 +43,6 @@ function App() {
         dragged.current = setDragged()
         touchEnd()
       })
-
 
       window.addEventListener('mousedown', touchStart)
 
@@ -133,32 +126,26 @@ function App() {
 
   return (
     // will need some kind of login components
-
     <div className="App">
+      {loggedIn !== null ?  
       <div id="outer-container">
-        <UserCP setSortRecipes={setSortRecipes} sortRecipes={sortRecipes} multiList={multiList} setMultiListView={setMultiListView} setSelectedIngredients={setSelectedIngredients} showAddRecipeForm={showAddRecipeForm}/>
-        <RecipeGrid 
-          sortRecipes={sortRecipes} 
-          dragged={dragged} 
-          multiList={multiList} 
-          multiListView={multiListView} selectedIngredients={selectedIngredients} setSelectedIngredients={setSelectedIngredients} 
-          showIngredientList={showIngredientList} addingRecipe={addingRecipe} 
-          setAddingRecipe={setAddingRecipe}
-          addNewRecipe={addNewRecipe} 
-          showRecipeGrid={showRecipeGrid}/>
-      </div>
+        <UserCP setSortRecipes={setSortRecipes} sortRecipes={sortRecipes} multiList={multiList} setMultiListView={setMultiListView} setSelectedIngredients={setSelectedIngredients} showAddRecipeForm={showAddRecipeForm} setLoggedIn={setLoggedIn}/>
+          <RecipeGrid 
+            sortRecipes={sortRecipes} 
+            dragged={dragged} 
+            multiList={multiList} 
+            multiListView={multiListView} selectedIngredients={selectedIngredients} setSelectedIngredients={setSelectedIngredients} 
+            showIngredientList={showIngredientList} addingRecipe={addingRecipe} 
+            setAddingRecipe={setAddingRecipe}
+            addNewRecipe={addNewRecipe} 
+            showRecipeGrid={showRecipeGrid}/> 
+      </div> 
+      : 
+      <div><Login setLoggedIn={setLoggedIn}/></div>
+      }   
+      <Footer />
     </div>
   );
-
-
-  // helper functions
-  function hideRecipeGrid() {
-    document.getElementById("recipe-grid").classList.add('hide-recipe-grid')
-  }
-
-  function showRecipeGrid() {
-    document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
-  }
 }
 
 export default App;

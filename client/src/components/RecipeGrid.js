@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
 import AddRecipeForm from "./AddRecipeForm"
 
-const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, setAddingRecipe, addNewRecipe, showRecipeGrid}) => {
+const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid}) => {
     const [recipeList, setRecipeList] = useState([])
     const getRecipes = () => {
         fetch("/recipes")
@@ -23,13 +23,15 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
                         return 0
                     }
                 })
+                console.log(data)
                 setRecipeList(data)
             })
+            .catch(err =>  console.log(err))
     }
 
     useEffect(() => {
             getRecipes()
-        }, [sortRecipes, addingRecipe])
+        }, [])
 
     const closeIngredientList = () => {
         document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
@@ -45,19 +47,23 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
                 tempMultiList.push(recipe.ingredients[i])
             }
         } else {
-            tempMultiList = tempMultiList.filter((element) => element.id !== recipe.id)
+            tempMultiList = tempMultiList.filter((element) => element.id !== recipe._id)
         }
 
         e.target.classList.toggle('multiList-select')
 
-        multiList.current = tempMultiList
+        if (e.target.classList.contains('multiList-select')) {
+            e.target.textContent = '-'
+            e.target.style.fontWeight = 'bold'
+        } else {
+            e.target.textContent = '+'
+            e.target.style.fontWeight = ''
+        }
 
-        console.log(multiList.current)
+        multiList.current = tempMultiList
     }
 
     const deleteRecipe = (recipe) => {
-        console.log(`${recipe.dish} deleted`)
-
         fetch(`/recipes/${recipe.id}`, {
             method: 'DELETE'
         })
@@ -71,7 +77,7 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
 if (recipeList.length > 0) {
     return (
         <div id="recipe-grid"> 
-            {recipeList.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} showIngredientList={showIngredientList}  addToCombinedList={addToCombinedList} deleteRecipe={deleteRecipe}/>)}
+            {recipeList.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} showIngredientList={showIngredientList}  addToCombinedList={addToCombinedList} deleteRecipe={deleteRecipe}/>)}
 
             {selectedIngredients.length > 0 && 
             <IngredientList selectedIngredients={selectedIngredients}

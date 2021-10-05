@@ -3,7 +3,7 @@ const DeleteRecipe = ({recipe, deleteRecipe}) => {
         <div className="delete-recipe" onClick={() => {
             deleteRecipe(recipe)
         }}>
-            X
+            x
         </div>
     )
 }
