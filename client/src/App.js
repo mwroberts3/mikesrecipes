@@ -7,6 +7,8 @@ import UserCP from "./components/UserCP";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
 
+import firebase from 'firebase'
+
 function App() {
   const [sortRecipes, setSortRecipes] = useState("asc")
   const dragged = useRef(false)
@@ -15,25 +17,27 @@ function App() {
   const [selectedIngredients, setSelectedIngredients] = useState([])
   const [addingRecipe, setAddingRecipe] = useState(false)
 
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(null)
 
   useEffect(() => {
-    // firebase.auth()
-    // .getRedirectResult()
-    // .then((result) => {
-    //   if (result.credential) {
-    //     /** @type {firebase.auth.OAuthCredential} */
-    //     var credential = result.credential;
+    firebase.auth()
+    .getRedirectResult()
+    .then((result) => {
+      if (result.credential) {
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential;
   
-    //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     var token = credential.accessToken;
-    //     // ...
-    //   }
-    //   // The signed-in user info.
-    //   var user = result.user;
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = credential.accessToken;
+        // ...
+      }
+      // The signed-in user info.
+      var user = result.user;
+
+      console.log(token)
   
-    //   setLoggedIn(user)
-    // }).catch((err) => console.log(err));
+      setLoggedIn(user)
+    }).catch((err) => console.log(err));
 
       window.addEventListener('touchstart', touchStart)
 
@@ -77,15 +81,14 @@ function App() {
 
     let requestReadyRecipeObj = {}
     let ingredientSublist = []
-    let newRecipeID = Math.floor(Math.random() * 9999)
+    // let newRecipeID = Math.floor(Math.random() * 9999)
 
     for(let i=0;i<newRecipeInfo.length;i++) {
       if (i===0) {
         requestReadyRecipeObj.dish = newRecipeInfo[i].value
-        requestReadyRecipeObj.id = newRecipeID
       } else {
         if (newRecipeInfo[i].value !== "") {
-          ingredientSublist.push({"item":newRecipeInfo[i].value, "id":newRecipeID})
+          ingredientSublist.push({"item":newRecipeInfo[i].value, "id":0})
         }
       }
     }

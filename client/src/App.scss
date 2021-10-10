@@ -70,6 +70,11 @@ svg {
   overflow: hidden;
 
   .recipe-card {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     width: 100vw;
     display: flex;
     justify-content: center;

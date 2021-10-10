@@ -27,7 +27,7 @@ app.get("/recipes", (req, res) => {
 
 app.post("/add-recipe", (req, res) => {
     console.log('add recipe')
-    console.log(req.body)
+    recipesController.addRecipe(client, req.body)
 })
 
 app.delete("/delete-recipe", (req, res) => {
