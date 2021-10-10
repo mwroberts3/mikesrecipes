@@ -2,10 +2,12 @@ const IngredientList = ({ selectedIngredients, closeIngredientList }) => {
     const markIngredient = (e) => {
         if (e.target.style.color === "green") {
             e.target.style.color = "black"
-            e.target.style.fontWeight = "bold"
+            e.target.style.fontWeight = "400"
+            e.target.style.textDecoration = 'none'
         } else {
             e.target.style.color = "green"
-            e.target.style.fontWeight = "normal"
+            e.target.style.fontWeight = "300"
+            e.target.style.textDecoration = 'line-through'
         }
     }
  

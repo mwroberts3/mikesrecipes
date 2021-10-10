@@ -101,19 +101,15 @@ function App() {
     
     console.log(requestReadyRecipeObj)
 
-    fetch("/recipes", {
+    fetch("/add-recipe", {
       method: 'POST',
       headers: {
         "Content-type": "application/json"
       },
       body: requestReadyRecipeObj
     })
-      .then((res) => console.log(res))
-      .then(() => {
-        setAddingRecipe(false)
-      })
-        .catch((err) => console.log(err))    
-      }
+    .then(() => {})
+  }
   
   const showAddRecipeForm = () => {
     if (!addingRecipe) {

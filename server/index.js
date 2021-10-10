@@ -15,14 +15,25 @@ const recipesController = require('./recipesController')
 
 app.use(bodyParser.json())
 
+
 app.get("/recipes", (req, res) => {
-    console.log('request sent')
+    console.log('get recipes')
     recipesController.gatherRecipeList(client)
     .then((recipeList) => {
-            res.json(recipeList)
-        })
-        .catch(err => console.log(err))  
+        res.json(recipeList)
+    })
+    .catch(err => console.log(err))  
 })
+
+app.post("/add-recipe", (req, res) => {
+    console.log('add recipe')
+    console.log(req.body)
+})
+
+app.delete("/delete-recipe", (req, res) => {
+    console.log('delete recipe')
+})
+
 
 app.listen(PORT, () => {
     main().catch(err => console.log(err))

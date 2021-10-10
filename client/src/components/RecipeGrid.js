@@ -23,15 +23,12 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
                         return 0
                     }
                 })
-                console.log(data)
                 setRecipeList(data)
             })
             .catch(err =>  console.log(err))
     }
 
-    useEffect(() => {
-            getRecipes()
-        }, [])
+    useEffect(getRecipes, [sortRecipes])
 
     const closeIngredientList = () => {
         document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
@@ -64,11 +61,11 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
     }
 
     const deleteRecipe = (recipe) => {
-        fetch(`/recipes/${recipe.id}`, {
+        fetch("/delete-recipe", {
             method: 'DELETE'
         })
             .then(() => {
-                getRecipes()
+                // getRecipes()
             })
             .catch((err) => console.log(err))
     }
