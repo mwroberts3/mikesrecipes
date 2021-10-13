@@ -3,10 +3,20 @@ import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
 import AddRecipeForm from "./AddRecipeForm"
 
-const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid}) => {
+const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn}) => {
     const [recipeList, setRecipeList] = useState([])
     const getRecipes = () => {
-        fetch("/recipes")
+        console.log(loggedIn)
+        
+        let userInfo = JSON.stringify({userName: loggedIn})
+
+        fetch("/recipes", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: userInfo
+        })
             .then((res) => res.json())
             .then((data) => {
                 data.sort(function(a, b) {

@@ -16,10 +16,27 @@ const recipesController = require('./recipesController')
 app.use(bodyParser.json())
 
 
-app.get("/recipes", (req, res) => {
+app.post("/recipes", (req, res) => {
+    console.log(req.body.userName)
     console.log('get recipes')
-    recipesController.gatherRecipeList(client)
+
+    let userNameHash; 
+
+    // hash active username
+    bcrypt.hash(req.body.userName, saltRounds, function(err, hash) {
+        console.log(hash)
+        userNameHash = hash
+    })
+
+    // hash test
+    // setTimeout(() => {
+
+    // }, 5000)
+
+    // pull recipes that are associated with hashed username
+    recipesController.gatherRecipeList(client, req.body.userName)
     .then((recipeList) => {
+        console.log(recipeList)
         res.json(recipeList)
     })
     .catch(err => console.log(err))  

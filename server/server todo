@@ -1,0 +1,3 @@
+-get username from react
+    -hash and store in mongo database
+    -link created recipes with hashed username

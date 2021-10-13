@@ -34,9 +34,9 @@ function App() {
       // The signed-in user info.
       var user = result.user;
 
-      console.log(token)
+      console.log(user)
   
-      setLoggedIn(user)
+      setLoggedIn(user.bc.email)
     }).catch((err) => console.log(err));
 
       window.addEventListener('touchstart', touchStart)
@@ -137,7 +137,8 @@ function App() {
             showIngredientList={showIngredientList} addingRecipe={addingRecipe} 
             setAddingRecipe={setAddingRecipe}
             addNewRecipe={addNewRecipe} 
-            showRecipeGrid={showRecipeGrid}/> 
+            showRecipeGrid={showRecipeGrid}
+            loggedIn={loggedIn}/> 
       </div> 
       : 
       <div><Login setLoggedIn={setLoggedIn}/></div>
