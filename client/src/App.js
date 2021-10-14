@@ -100,6 +100,8 @@ function App() {
     
     requestReadyRecipeObj.ingredients = ingredientSublist
 
+    requestReadyRecipeObj.userHash = loggedIn
+
     requestReadyRecipeObj = JSON.stringify(requestReadyRecipeObj)
     
     console.log(requestReadyRecipeObj)
@@ -111,7 +113,11 @@ function App() {
       },
       body: requestReadyRecipeObj
     })
-    .then(() => {})
+      .then((res) => {
+        console.log(res)
+        setAddingRecipe(false)
+      })
+      .catch((err) => console.log(err))
   }
   
   const showAddRecipeForm = () => {

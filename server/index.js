@@ -17,26 +17,12 @@ app.use(bodyParser.json())
 
 
 app.post("/recipes", (req, res) => {
-    console.log(req.body.userName)
-    console.log('get recipes')
-
-    let userNameHash; 
-
-    // hash active username
-    bcrypt.hash(req.body.userName, saltRounds, function(err, hash) {
-        console.log(hash)
-        userNameHash = hash
-    })
-
-    // hash test
-    // setTimeout(() => {
-
-    // }, 5000)
+    // console.log(req.body.userName)
+    // console.log('get recipes')
 
     // pull recipes that are associated with hashed username
     recipesController.gatherRecipeList(client, req.body.userName)
     .then((recipeList) => {
-        console.log(recipeList)
         res.json(recipeList)
     })
     .catch(err => console.log(err))  
@@ -44,6 +30,7 @@ app.post("/recipes", (req, res) => {
 
 app.post("/add-recipe", (req, res) => {
     console.log('add recipe')
+
     recipesController.addRecipe(client, req.body)
 })
 
