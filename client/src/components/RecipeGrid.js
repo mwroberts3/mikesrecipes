@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
 import AddRecipeForm from "./AddRecipeForm"
+import { json } from "body-parser"
 
 const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn}) => {
     const [recipeList, setRecipeList] = useState([])
@@ -38,7 +39,7 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             .catch(err =>  console.log(err))
     }
 
-    useEffect(getRecipes, [sortRecipes])
+    useEffect(getRecipes, [sortRecipes, addingRecipe])
 
     const closeIngredientList = () => {
         document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
@@ -71,18 +72,25 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
     }
 
     const deleteRecipe = (recipe) => {
+        console.log(recipe._id)
+
         fetch("/delete-recipe", {
-            method: 'DELETE'
-        })
+            method: 'DELETE',
+            headers: {
+                "Content-type": "application/json"
+              },
+            body: JSON.stringify({id: recipe._id})
+            })
             .then(() => {
-                // getRecipes()
             })
             .catch((err) => console.log(err))
-    }
-
-    
-if (recipeList.length > 0) {
-    return (
+            
+            getRecipes()
+        }
+        
+        
+        if (recipeList.length > 0) {
+            return (
         <div id="recipe-grid"> 
             {recipeList.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} showIngredientList={showIngredientList}  addToCombinedList={addToCombinedList} deleteRecipe={deleteRecipe}/>)}
 
@@ -98,7 +106,15 @@ if (recipeList.length > 0) {
 } else {
     return (
         <div id="recipe-grid">
-            loading...
+            add recipe
+
+            {selectedIngredients.length > 0 && 
+            <IngredientList selectedIngredients={selectedIngredients}
+            closeIngredientList={closeIngredientList}
+            />}
+
+            {addingRecipe && 
+            <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid}/>}
         </div>
     )
 }

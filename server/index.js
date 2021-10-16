@@ -17,9 +17,6 @@ app.use(bodyParser.json())
 
 
 app.post("/recipes", (req, res) => {
-    // console.log(req.body.userName)
-    // console.log('get recipes')
-
     // pull recipes that are associated with hashed username
     recipesController.gatherRecipeList(client, req.body.userName)
     .then((recipeList) => {
@@ -29,15 +26,12 @@ app.post("/recipes", (req, res) => {
 })
 
 app.post("/add-recipe", (req, res) => {
-    console.log('add recipe')
-
     recipesController.addRecipe(client, req.body)
 })
 
 app.delete("/delete-recipe", (req, res) => {
-    console.log('delete recipe')
+    recipesController.deleteRecipe(client, req.body.id)
 })
-
 
 app.listen(PORT, () => {
     main().catch(err => console.log(err))

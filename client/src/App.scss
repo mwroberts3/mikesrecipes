@@ -18,11 +18,27 @@ svg {
   cursor: pointer;
 }
 
+button {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #888;
+  width: 225px;
+  display: block;
+  margin: auto;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
 // Utilities
 .grabbing {
   cursor: grabbing;
 }
 
+// Containers
 #outer-container {
   width: 100vw;
   min-height: 100vh;
@@ -62,7 +78,7 @@ svg {
 #recipe-grid {
   margin: 0 auto;
   max-width: calc(100vw + 100px);
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -175,8 +191,8 @@ svg {
   background: #fff;
   min-width: 90%;
   padding: 5px;
-  border: 1px solid black;
-  border-radius: 10px;
+  border: 2px solid #777;
+  border-radius: 30px;
   height: 90vh;
   overflow: auto;
 
@@ -230,4 +246,35 @@ svg {
   text-align: center;
   color: #777;
   font-size: 14px;
+}
+
+// Login/Signup screen
+#login-signup-screen {
+  div {
+    padding: 10px;
+
+    h2 {
+      text-align: center;
+    }
+
+    button:first-child {
+      font-weight: 700;
+    }
+
+    button {
+      margin-bottom: 10px;
+    }
+  }
+
+  #footer {
+    margin-top: calc(100vh - 200px);
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+  }
+}
+
+.google-signup {
+  background: rgb(38, 128, 158);
+  color: #fff;
 }

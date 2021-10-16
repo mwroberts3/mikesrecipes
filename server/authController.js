@@ -3,9 +3,9 @@ exports.encryptUserName = (userName) => {
 
     for(let i=0; i < userName.length; i++) {
         if (+userName.charCodeAt(i) % 2 === 0) {
-            encryptedArray.push(+userName.charCodeAt(i) + 90)
+            encryptedArray.push(+userName.charCodeAt(i) + 2)
         } else {
-            encryptedArray.push(+userName.charCodeAt(i) + 14)
+            encryptedArray.push(+userName.charCodeAt(i) + 1)
         }
     }
 

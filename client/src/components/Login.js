@@ -11,9 +11,14 @@ const Login = () => {
 
 
     return (
-        <button onClick={signIn}>
-            Login
-        </button>
+        <div>
+            <button onClick={signIn}>
+                Login with Google
+            </button>
+            <button className="google-signup">
+                <a href="https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Fwww.google.com%2F&hl=en&biz=false&flowName=GlifWebSignIn&flowEntry=SignUp">Signup for Google</a>
+            </button>
+        </div>
     )
 }
 

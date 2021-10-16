@@ -34,8 +34,6 @@ function App() {
       // The signed-in user info.
       var user = result.user;
 
-      console.log(user)
-  
       setLoggedIn(user.bc.email)
     }).catch((err) => console.log(err));
 
@@ -81,7 +79,6 @@ function App() {
 
     let requestReadyRecipeObj = {}
     let ingredientSublist = []
-    // let newRecipeID = Math.floor(Math.random() * 9999)
 
     for(let i=0;i<newRecipeInfo.length;i++) {
       if (i===0) {
@@ -115,10 +112,11 @@ function App() {
     })
       .then((res) => {
         console.log(res)
-        setAddingRecipe(false)
       })
       .catch((err) => console.log(err))
-  }
+
+      setAddingRecipe(false)
+    }
   
   const showAddRecipeForm = () => {
     if (!addingRecipe) {
@@ -145,11 +143,15 @@ function App() {
             addNewRecipe={addNewRecipe} 
             showRecipeGrid={showRecipeGrid}
             loggedIn={loggedIn}/> 
+        <Footer />
       </div> 
       : 
-      <div><Login setLoggedIn={setLoggedIn}/></div>
+      <div id="login-signup-screen">
+        <div><h2>Mike's Recipes</h2></div>
+        <Login setLoggedIn={setLoggedIn}/>
+        <Footer />
+      </div>
       }   
-      <Footer />
     </div>
   );
 }
