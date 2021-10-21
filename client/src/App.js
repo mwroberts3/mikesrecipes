@@ -148,7 +148,7 @@ function App() {
       : 
       <div id="login-signup-screen">
         <div><h2>Mike's Recipes</h2></div>
-        <Login setLoggedIn={setLoggedIn}/>
+        <Login loggedIn={loggedIn}/>
         <Footer />
       </div>
       }   

@@ -11,7 +11,7 @@ const client = new MongoClient(uri, {useUnifiedTopology: true})
 
 const recipesController = require('./recipesController')
 
-// app.use(express.static(path.resolve(__dirname, '../client/build')))
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 
 app.use(bodyParser.json())
 

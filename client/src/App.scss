@@ -84,6 +84,7 @@ button {
   align-items: center;
   position: relative;
   overflow: hidden;
+  transition: all 0.1s linear;
 
   .recipe-card {
     -webkit-user-select: none;

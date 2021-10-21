@@ -6,9 +6,8 @@ import { json } from "body-parser"
 
 const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn}) => {
     const [recipeList, setRecipeList] = useState([])
-    const getRecipes = () => {
-        console.log(loggedIn)
-        
+
+    const getRecipes = () => {      
         let userInfo = JSON.stringify({userName: loggedIn})
 
         fetch("/recipes", {
@@ -84,7 +83,7 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             .then(() => {
             })
             .catch((err) => console.log(err))
-            
+
             getRecipes()
         }
         

@@ -7,7 +7,6 @@ const AddRecipeForm = ({addNewRecipe, showRecipeGrid}) => {
         for(let i=0;i<Array.from(document.querySelectorAll('input')).length;i++) {
             previousNewRecIngredients.push(Array.from(document.querySelectorAll('input'))[i].value)
         }
-        console.log(previousNewRecIngredients)
         
         ingredientInputs.innerHTML += `
             <label>Ingredient:</label>

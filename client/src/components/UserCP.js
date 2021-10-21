@@ -40,7 +40,7 @@ const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients,
                     showMultiRecipeList(e)
                 }}/>
             </p>
-            <h2>Good Names Taken</h2>
+            <h2>Mike's Recipes</h2>
             <p>
                 <FaSignOutAlt className="icon" onClick={userLogout}/>
             </p>

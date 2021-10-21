@@ -1,6 +1,8 @@
 import firebase from "../firebase"
 
-const Login = () => {
+const Login = ({loggedIn}) => {
+
+    console.log(loggedIn)
 
     const signIn = () => {
         let provider = new firebase.auth.GoogleAuthProvider()
