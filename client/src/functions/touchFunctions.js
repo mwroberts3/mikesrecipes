@@ -7,12 +7,10 @@ selectedCard = ''
 
 const touchStart = (e) => {    
     isDragging = true
-    startPos = getPositionX(e)
     
     if (e.target.tagName === "P") {
+      startPos = getPositionX(e)
       selectedCard = e.target.parentNode
-      
-    //   console.log(e.target.parentNode.classList)
 
       if (!selectedCard.classList.contains('fully-dragged')) {
         currentTranslate = 0

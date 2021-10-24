@@ -28,7 +28,7 @@ function App() {
         var credential = result.credential;
   
         // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = credential.accessToken;
+        // var token = credential.accessToken;
         // ...
       }
       // The signed-in user info.
@@ -85,7 +85,7 @@ function App() {
         requestReadyRecipeObj.dish = newRecipeInfo[i].value
       } else {
         if (newRecipeInfo[i].value !== "") {
-          ingredientSublist.push({"item":newRecipeInfo[i].value, "id":0})
+          ingredientSublist.push({"item":newRecipeInfo[i].value})
         }
       }
     }
@@ -100,8 +100,6 @@ function App() {
     requestReadyRecipeObj.userHash = loggedIn
 
     requestReadyRecipeObj = JSON.stringify(requestReadyRecipeObj)
-    
-    console.log(requestReadyRecipeObj)
 
     fetch("/add-recipe", {
       method: 'POST',
@@ -143,13 +141,13 @@ function App() {
             addNewRecipe={addNewRecipe} 
             showRecipeGrid={showRecipeGrid}
             loggedIn={loggedIn}/> 
-        <Footer />
+        {/* <Footer /> */}
       </div> 
       : 
       <div id="login-signup-screen">
         <div><h2>Mike's Recipes</h2></div>
         <Login loggedIn={loggedIn}/>
-        <Footer />
+        {/* <Footer /> */}
       </div>
       }   
     </div>

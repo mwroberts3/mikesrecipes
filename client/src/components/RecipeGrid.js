@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
 import AddRecipeForm from "./AddRecipeForm"
-import { json } from "body-parser"
 
 const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn}) => {
     const [recipeList, setRecipeList] = useState([])
@@ -48,6 +47,10 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
 
     const addToCombinedList = (e, recipe) => {
         let tempMultiList = multiList.current
+
+        for(let i=0; i<recipe.ingredients.length; i++) {
+            recipe.ingredients[i].id = recipe._id
+        }
 
         if (!e.target.classList.contains('multiList-select')) {
             for(let i=0; i<recipe.ingredients.length; i++) {

@@ -5,7 +5,7 @@ const IngredientList = ({ selectedIngredients, closeIngredientList }) => {
             e.target.style.fontWeight = "400"
             e.target.style.textDecoration = 'none'
         } else {
-            e.target.style.color = "green"
+            e.target.style.color = "#92dacb"
             e.target.style.fontWeight = "300"
             e.target.style.textDecoration = 'line-through'
         }

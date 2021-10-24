@@ -33,17 +33,16 @@ const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients,
 
     return (
         <div id="user-control-panel">
+            <h2>Mike's Recipes</h2>
             <p>
                 <FaSort className="icon" onClick={cpSortRecipes}/>
                 <FaPlusSquare className="icon" onClick={showAddRecipeForm}/>
                 <FaLayerGroup className="icon" onClick={(e) => {
                     showMultiRecipeList(e)
                 }}/>
-            </p>
-            <h2>Mike's Recipes</h2>
-            <p>
                 <FaSignOutAlt className="icon" onClick={userLogout}/>
             </p>
+            <hr style={{width: '100%', marginBottom: 5}}/>
         </div>
     )
 }

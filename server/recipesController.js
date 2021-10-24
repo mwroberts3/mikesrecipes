@@ -5,9 +5,7 @@ const authController = require('./authController')
 exports.gatherRecipeList = async (client, userName) => {
     // encrypt userName
     let encryptedUserName = authController.encryptUserName(userName)
-
-    console.log(encryptedUserName)
-
+    
     let recipeList
         
     const cursor = client.db("recipes").collection("recipelist")

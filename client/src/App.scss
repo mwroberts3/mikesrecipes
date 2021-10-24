@@ -45,40 +45,30 @@ button {
 
   h2 {
     text-align: center;
-    margin-bottom: 10px;
   }
 }
 
 #user-control-panel {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  max-width: 600px;
   margin: auto;
   overflow: hidden;
-  height: 50px;
+  height: 70px;
 
-  h2 {
-    margin-top: 8px;
-  }
-
-  p:first-child {
-    width: 60px;
+  p {
+    width: 200px;
     display: flex;
     justify-content: space-between;
-  }
-
-  p:last-child {
-    width: 60px;
-    display: flex;
-    justify-content: center;
   }
 }
 
 #recipe-grid {
   margin: 0 auto;
   max-width: calc(100vw + 100px);
-  height: 100vh;
+  height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,7 +82,8 @@ button {
     -ms-user-select: none;
     user-select: none;
 
-    width: 100vw;
+    width: 100%;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,7 +127,7 @@ button {
     top: 0;
     right: 5px;
     color: #fff;
-    background: #dc143c;
+    background: #da3657;
     height: 50px;
     width: 30px;
     display: flex;
@@ -163,7 +154,8 @@ button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-width: 90%;
+  width: 90%;
+  max-width: 750px;
   background: #fff;
   padding: 5px;
   border: 1px solid black;
@@ -243,10 +235,12 @@ button {
 }
 
 #footer {
+  margin: auto;
   margin-top: -20px;
   text-align: center;
   color: #777;
   font-size: 14px;
+  width: 200px;
 }
 
 // Login/Signup screen
@@ -268,10 +262,12 @@ button {
   }
 
   #footer {
+    margin: auto;
     margin-top: calc(100vh - 200px);
     text-align: center;
     color: #777;
     font-size: 14px;
+    width: 200px;
   }
 }
 
