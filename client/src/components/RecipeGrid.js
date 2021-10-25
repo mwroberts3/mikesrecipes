@@ -84,12 +84,11 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             body: JSON.stringify({id: recipe._id})
             })
             .then(() => {
+                setRecipeList([])
+                getRecipes()
             })
             .catch((err) => console.log(err))
-
-            getRecipes()
         }
-        
         
         if (recipeList.length > 0) {
             return (

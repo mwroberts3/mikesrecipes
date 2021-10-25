@@ -141,13 +141,13 @@ function App() {
             addNewRecipe={addNewRecipe} 
             showRecipeGrid={showRecipeGrid}
             loggedIn={loggedIn}/> 
-        {/* <Footer /> */}
+        <Footer />
       </div> 
       : 
       <div id="login-signup-screen">
         <div><h2>Mike's Recipes</h2></div>
         <Login loggedIn={loggedIn}/>
-        {/* <Footer /> */}
+        <Footer />
       </div>
       }   
     </div>
