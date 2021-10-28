@@ -6,6 +6,8 @@ import AddRecipeForm from "./AddRecipeForm"
 const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn}) => {
     const [recipeList, setRecipeList] = useState([])
 
+    const [loadingRecipes, setLoadingRecipes] = useState(true)
+
     const getRecipes = () => {      
         let userInfo = JSON.stringify({userName: loggedIn})
 
@@ -32,12 +34,13 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
                         return 0
                     }
                 })
+                setLoadingRecipes(false)
                 setRecipeList(data)
             })
             .catch(err =>  console.log(err))
     }
 
-    useEffect(getRecipes, [sortRecipes, addingRecipe])
+    useEffect(getRecipes, [sortRecipes, addingRecipe, loggedIn])
 
     const closeIngredientList = () => {
         document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
@@ -74,8 +77,6 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
     }
 
     const deleteRecipe = (recipe) => {
-        console.log(recipe._id)
-
         fetch("/delete-recipe", {
             method: 'DELETE',
             headers: {
@@ -104,10 +105,10 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid}/>}
         </div>
     )
-} else {
+} else if (loadingRecipes) {
     return (
         <div id="recipe-grid">
-            add recipe
+            loading...
 
             {selectedIngredients.length > 0 && 
             <IngredientList selectedIngredients={selectedIngredients}
@@ -116,6 +117,12 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
 
             {addingRecipe && 
             <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid}/>}
+        </div>
+    )
+} else if (!loadingRecipes) {
+    return (
+        <div id="recipe-grid">
+            add recipes
         </div>
     )
 }

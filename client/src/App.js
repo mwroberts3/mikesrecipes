@@ -19,24 +19,18 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(null)
 
-  useEffect(() => {
-    firebase.auth()
-    .getRedirectResult()
-    .then((result) => {
-      if (result.credential) {
-        /** @type {firebase.auth.OAuthCredential} */
-        var credential = result.credential;
-  
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // var token = credential.accessToken;
-        // ...
-      }
-      // The signed-in user info.
-      var user = result.user;
+  const [isUserSignedIn, setIsUserSignedIn] = useState(true)
 
+  firebase.auth().onAuthStateChanged((user) => {  
+    if (user) {
       setLoggedIn(user.bc.email)
-    }).catch((err) => console.log(err));
+      return setIsUserSignedIn(true)
+    } else {
+      setIsUserSignedIn(false)
+    }
+  })
 
+  useEffect(() => {
       window.addEventListener('touchstart', touchStart)
 
       window.addEventListener('touchmove', touchMove)
@@ -128,7 +122,7 @@ function App() {
   return (
     // will need some kind of login components
     <div className="App">
-      {loggedIn !== null ?  
+      {isUserSignedIn === true ?  
       <div id="outer-container">
         <UserCP setSortRecipes={setSortRecipes} sortRecipes={sortRecipes} multiList={multiList} setMultiListView={setMultiListView} setSelectedIngredients={setSelectedIngredients} showAddRecipeForm={showAddRecipeForm} setLoggedIn={setLoggedIn}/>
           <RecipeGrid 
@@ -145,8 +139,8 @@ function App() {
       </div> 
       : 
       <div id="login-signup-screen">
-        <div><h2>Mike's Recipes</h2></div>
-        <Login loggedIn={loggedIn}/>
+        <div><h2 className="header-font">Mike's Recipes</h2></div>
+        <Login setLoggedIn={setLoggedIn}/>
         <Footer />
       </div>
       }   

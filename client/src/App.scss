@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 
 // Main styling
 * {
@@ -50,13 +51,13 @@ button {
   }
 }
 
-.main-header {
-  margin-bottom: 50px;
-}
-
 // Utilities
 .grabbing {
   cursor: grabbing;
+}
+
+.header-font {
+  font-family: "Kanit", sans-serif;
 }
 
 // Containers

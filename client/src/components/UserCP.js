@@ -26,12 +26,11 @@ const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients,
 
     const userLogout = () => {
         firebase.auth().signOut()
-        setLoggedIn(null)
     }
 
     return (
         <div id="user-control-panel">
-            <h2 id="main-header">Mike's Recipes</h2>
+            <h2 className="header-font">Mike's Recipes</h2>
             <p>
                 <FaSort className="icon" onClick={cpSortRecipes}/>
                 <FaPlusSquare className="icon" onClick={showAddRecipeForm}/>
