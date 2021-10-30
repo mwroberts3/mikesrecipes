@@ -3,7 +3,7 @@ import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
 import AddRecipeForm from "./AddRecipeForm"
 
-const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn}) => {
+const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn, showAddRecipeForm}) => {
     const [recipeList, setRecipeList] = useState([])
 
     const [loadingRecipes, setLoadingRecipes] = useState(true)
@@ -102,13 +102,13 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             />}
 
             {addingRecipe && 
-            <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid}/>}
+            <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid} showAddRecipeForm={showAddRecipeForm}/>}
         </div>
     )
 } else if (loadingRecipes) {
     return (
         <div id="recipe-grid">
-            loading...
+            <span className="ui-message">loading...</span>
 
             {selectedIngredients.length > 0 && 
             <IngredientList selectedIngredients={selectedIngredients}
@@ -116,13 +116,16 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             />}
 
             {addingRecipe && 
-            <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid}/>}
+            <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid} showAddRecipeForm={showAddRecipeForm}/>}
         </div>
     )
 } else if (!loadingRecipes) {
     return (
         <div id="recipe-grid">
-            add recipes
+            <span className="ui-message">add recipes</span>
+
+            {addingRecipe && 
+            <AddRecipeForm addNewRecipe={addNewRecipe} showRecipeGrid={showRecipeGrid} showAddRecipeForm={showAddRecipeForm}/>}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import firebase from '../firebase'
 import { FaSignOutAlt, FaSort, FaPlusSquare, FaLayerGroup } from 'react-icons/fa'
 
-const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients, showAddRecipeForm, setLoggedIn}) => {
+const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients, setAddingRecipe}) => {
     const cpSortRecipes = () => {
         if (sortRecipes === "asc") {
             setSortRecipes('dsc')
@@ -29,18 +29,19 @@ const UserCP = ({setSortRecipes, sortRecipes, multiList, setSelectedIngredients,
     }
 
     return (
+        <>
         <div id="user-control-panel">
             <h2 className="header-font">Mike's Recipes</h2>
             <p>
                 <FaSort className="icon" onClick={cpSortRecipes}/>
-                <FaPlusSquare className="icon" onClick={showAddRecipeForm}/>
+                <FaPlusSquare className="icon" onClick={() => setAddingRecipe(true)}/>
                 <FaLayerGroup className="icon" onClick={(e) => {
                     showMultiRecipeList(e)
                 }}/>
                 <FaSignOutAlt className="icon logout" onClick={userLogout}/>
             </p>
-            <hr style={{width: '100%', marginBottom: 5}}/>
         </div>
+        </>
     )
 }
 

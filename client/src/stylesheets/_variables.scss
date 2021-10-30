@@ -1,0 +1,21 @@
+// Borders
+$border-dark: #777;
+$general-border-radius: 10px;
+
+// Buttons
+$dark-green-btn: #01755e;
+
+// Colors
+$col-icon: #02aa88;
+$col-icon-hover: #71dac5;
+$col-icon-logout: #da3657;
+$col-icon-hover-logout: #dbbcc2;
+$col-ingredient-selected: #92dacb;
+$col-primary-dark: #333;
+
+// Fonts
+$content-font: "Roboto", sans-serif;
+$header-font: "Quicksand", sans-serif;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");

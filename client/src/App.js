@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef} from "react"
-import './App.scss';
+import './stylesheets/App.scss';
 import { touchStart, touchMove, touchEnd, setDragged  } from "./functions/touchFunctions"
 import { hideRecipeGrid, showRecipeGrid } from "./functions/helperFunctions"
 import RecipeGrid from "./components/RecipeGrid";
@@ -124,7 +124,7 @@ function App() {
     <div className="App">
       {isUserSignedIn === true ?  
       <div id="outer-container">
-        <UserCP setSortRecipes={setSortRecipes} sortRecipes={sortRecipes} multiList={multiList} setMultiListView={setMultiListView} setSelectedIngredients={setSelectedIngredients} showAddRecipeForm={showAddRecipeForm} setLoggedIn={setLoggedIn}/>
+        <UserCP setSortRecipes={setSortRecipes} sortRecipes={sortRecipes} multiList={multiList} setMultiListView={setMultiListView} setSelectedIngredients={setSelectedIngredients} setAddingRecipe={setAddingRecipe} />
           <RecipeGrid 
             sortRecipes={sortRecipes} 
             dragged={dragged} 
@@ -134,7 +134,8 @@ function App() {
             setAddingRecipe={setAddingRecipe}
             addNewRecipe={addNewRecipe} 
             showRecipeGrid={showRecipeGrid}
-            loggedIn={loggedIn}/> 
+            loggedIn={loggedIn}
+            showAddRecipeForm={showAddRecipeForm}/> 
         <Footer />
       </div> 
       : 

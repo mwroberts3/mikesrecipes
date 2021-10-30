@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+@import "./variables";
 
 // Main styling
 * {
@@ -9,7 +8,7 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: $content-font;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,19 +34,19 @@ button {
 }
 
 .icon {
-  color: rgb(0, 116, 0);
+  color: $col-icon;
   transition: color 0.2s ease;
 
   &.logout {
-    color: #333;
+    color: $col-icon-logout;
   }
 
   &.logout:hover {
-    color: #bbb;
+    color: $col-icon-hover-logout;
   }
 
   &:hover {
-    color: #71dac5;
+    color: $col-icon-hover;
   }
 }
 
@@ -57,7 +56,30 @@ button {
 }
 
 .header-font {
-  font-family: "Kanit", sans-serif;
+  font-family: $header-font;
+  letter-spacing: 2px;
+}
+
+.ui-message {
+  padding-top: 10px;
+  font-style: italic;
+}
+
+.ingredient-selected {
+  color: #92dacb;
+  font-weight: 300;
+  text-decoration: line-through;
+}
+
+.ingredient-deselected {
+  list-style: none;
+  color: #000;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.padding-btm {
+  padding-bottom: 10px;
 }
 
 // Containers
@@ -70,7 +92,9 @@ button {
   }
 }
 
+// User control panel
 #user-control-panel {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, #ddd 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -78,6 +102,8 @@ button {
   margin: auto;
   overflow: hidden;
   height: 70px;
+  // border-bottom: 2px solid #777;
+  // color: #111;
 
   p {
     width: 200px;
@@ -86,6 +112,7 @@ button {
   }
 }
 
+// Recipe grid
 #recipe-grid {
   margin: 0 auto;
   max-width: calc(100vw + 100px);
@@ -97,6 +124,15 @@ button {
   position: relative;
   overflow: hidden;
   transition: all 0.1s linear;
+
+  .outer-rc-container {
+    position: relative;
+    width: calc(100vw + 114px);
+
+    &:first-child {
+      margin-top: 10px;
+    }
+  }
 
   .recipe-card {
     -webkit-user-select: none;
@@ -115,11 +151,7 @@ button {
     margin-bottom: 10px;
     background: #eee;
     font-size: 20px;
-  }
-
-  .outer-rc-container {
-    position: relative;
-    width: calc(100vw + 114px);
+    letter-spacing: 1px;
   }
 
   .multi-recipes {
@@ -139,8 +171,8 @@ button {
   }
 
   .multiList-select {
-    background: #71dac5;
-    color: #333;
+    background: $col-ingredient-selected;
+    color: $col-primary-dark;
   }
 
   .delete-recipe {
@@ -164,7 +196,7 @@ button {
 }
 
 .hide-recipe-grid {
-  background: rgba(0, 0, 0, 0.5);
+  background: #777;
 }
 
 .ingredient-list-display {
@@ -180,15 +212,15 @@ button {
   max-width: 750px;
   background: #fff;
   padding: 5px;
-  border: 1px solid black;
-  border-radius: 10px;
+  border: 2px solid $border-dark;
+  border-radius: $general-border-radius;
   overflow: auto;
   font-size: 22px;
-  font-weight: 400;
   line-height: 30px;
+  font-weight: 400;
 
   li {
-    list-style: none;
+    list-style-type: none;
     padding-bottom: 5px;
   }
 
@@ -208,10 +240,19 @@ button {
   max-width: 750px;
   padding: 5px;
   border: 2px solid #777;
-  border-radius: 30px;
+  border-radius: $general-border-radius;
   max-height: 90vh;
   overflow: auto;
   padding-bottom: 20px;
+
+  .close-add-recipe-form {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+    font-size: 22px;
+    color: $col-primary-dark;
+  }
 
   input {
     padding: 5px;
@@ -236,7 +277,7 @@ button {
   }
 
   button:last-of-type {
-    background: #777;
+    background: $dark-green-btn;
     color: #fff;
     font-weight: bold;
   }
@@ -256,15 +297,18 @@ button {
   top: 0;
   right: 10px;
   cursor: pointer;
+  color: $col-primary-dark;
 }
 
 #footer {
+  font-family: "Quicksand", sans-serif;
+  letter-spacing: 2px;
   margin: auto;
-  margin-top: -20px;
+  margin-top: -15px;
   text-align: center;
   color: #777;
-  font-size: 14px;
-  width: 200px;
+  font-size: 11px;
+  width: 250px;
 }
 
 // Login/Signup screen
@@ -286,16 +330,18 @@ button {
   }
 
   #footer {
+    font-family: "Quicksand", sans-serif;
+    letter-spacing: 2px;
     margin: auto;
     margin-top: calc(100vh - 193px);
     text-align: center;
     color: #777;
-    font-size: 14px;
-    width: 200px;
+    font-size: 11px;
+    width: 250px;
   }
 }
 
 .google-signup {
-  background: rgb(38, 128, 158);
+  background: $dark-green-btn;
   color: #fff;
 }

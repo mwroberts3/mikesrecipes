@@ -1,4 +1,4 @@
-const AddRecipeForm = ({addNewRecipe, showRecipeGrid}) => {
+const AddRecipeForm = ({addNewRecipe, showRecipeGrid, showAddRecipeForm}) => {
     const anotherIngredient = (e) => {
         let ingredientInputs = document.getElementById('ingredient-inputs')
         
@@ -20,7 +20,10 @@ const AddRecipeForm = ({addNewRecipe, showRecipeGrid}) => {
 
     return (
         <form id="add-new-recipe-form">
-            <h2>Add New Recipe</h2>
+            <div className="close-add-recipe-form" onClick={showAddRecipeForm}>
+                x
+            </div>
+            <h2 className="header-font padding-btm">Add New Recipe</h2>
             <div id="ingredient-inputs">
                 <label>Recipe Name:</label>
                 <input type="text" required/>
@@ -42,7 +45,6 @@ const AddRecipeForm = ({addNewRecipe, showRecipeGrid}) => {
                 anotherIngredient(e)
                 }}>Add Ingredient</button>
             <button type="submit" onClick={(e) => {e.preventDefault()
-            console.log(document.querySelector('input'))
             if (document.querySelector('input').value !== '') {
                 addNewRecipe()
                 showRecipeGrid()
