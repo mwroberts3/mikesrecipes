@@ -18,7 +18,6 @@ function App() {
   const [addingRecipe, setAddingRecipe] = useState(false)
 
   const [loggedIn, setLoggedIn] = useState(null)
-
   const [isUserSignedIn, setIsUserSignedIn] = useState(true)
 
   firebase.auth().onAuthStateChanged((user) => {  
@@ -102,12 +101,10 @@ function App() {
       },
       body: requestReadyRecipeObj
     })
-      .then((res) => {
-        console.log(res)
+      .then(() => {
+        setAddingRecipe(false)
       })
       .catch((err) => console.log(err))
-
-      setAddingRecipe(false)
     }
   
   const showAddRecipeForm = () => {
@@ -141,7 +138,7 @@ function App() {
       : 
       <div id="login-signup-screen">
         <div><h2 className="header-font">Mike's Recipes</h2></div>
-        <Login setLoggedIn={setLoggedIn}/>
+        <Login />
         <Footer />
       </div>
       }   

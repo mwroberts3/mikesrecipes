@@ -140,7 +140,6 @@ button {
     -ms-user-select: none;
     user-select: none;
 
-    width: 100%;
     overflow-x: hidden;
     display: flex;
     justify-content: center;
@@ -200,6 +199,11 @@ button {
 }
 
 .ingredient-list-display {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
   position: absolute;
   top: 0;
   left: 50%;
@@ -210,6 +214,7 @@ button {
   flex-direction: column;
   width: 90%;
   max-width: 750px;
+  max-height: 90vh;
   background: #fff;
   padding: 5px;
   border: 2px solid $border-dark;
@@ -220,6 +225,7 @@ button {
   font-weight: 400;
 
   li {
+    cursor: pointer;
     list-style-type: none;
     padding-bottom: 5px;
   }

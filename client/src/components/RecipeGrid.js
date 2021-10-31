@@ -3,7 +3,7 @@ import RecipeCard from "./recipecard/RecipeCard"
 import IngredientList from "./IngredientList"
 import AddRecipeForm from "./AddRecipeForm"
 
-const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, addNewRecipe, showRecipeGrid, loggedIn, showAddRecipeForm}) => {
+const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIngredients, showIngredientList, addingRecipe, setAddingRecipe, addNewRecipe, showRecipeGrid, loggedIn, showAddRecipeForm}) => {
     const [recipeList, setRecipeList] = useState([])
 
     const [loadingRecipes, setLoadingRecipes] = useState(true)
@@ -40,7 +40,7 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             .catch(err =>  console.log(err))
     }
 
-    useEffect(getRecipes, [sortRecipes, addingRecipe, loggedIn])
+    useEffect(getRecipes, [sortRecipes, addingRecipe, loggedIn, setRecipeList])
 
     const closeIngredientList = () => {
         document.getElementById("recipe-grid").classList.remove('hide-recipe-grid')
@@ -85,10 +85,9 @@ const RecipeGrid = ({sortRecipes, multiList, selectedIngredients, setSelectedIng
             body: JSON.stringify({id: recipe._id})
             })
             .then(() => {
-                setRecipeList([])
                 getRecipes()
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err))  
         }
         
         if (recipeList.length > 0) {

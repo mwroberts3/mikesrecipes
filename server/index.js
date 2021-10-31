@@ -20,17 +20,19 @@ app.post("/recipes", (req, res) => {
     // pull recipes that are associated with hashed username
     recipesController.gatherRecipeList(client, req.body.userName)
     .then((recipeList) => {
-        res.json(recipeList)
+        res.status(200).json(recipeList)
     })
     .catch(err => console.log(err))  
 })
 
 app.post("/add-recipe", (req, res) => {
     recipesController.addRecipe(client, req.body)
+    res.status(201).json()
 })
 
 app.delete("/delete-recipe", (req, res) => {
     recipesController.deleteRecipe(client, req.body.id)
+    res.status(200).json()
 })
 
 app.listen(PORT, () => {
